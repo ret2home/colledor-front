@@ -1,0 +1,11 @@
+{
+    "id": 835,
+    "rated": 0,
+    "tim": "2022/03/29 12:14:42",
+    "stat": "FINISHED",
+    "user1": "taxiing",
+    "user2": "NoTeamname",
+    "user1_score": "-",
+    "user2_score": "WA",
+    "output": "#.##..##.\n.#..###.#\n###..#...\n.###.#.##\n#.###.#.#\n.###.#.##\n###..#...\n.#..###.#\n#.##..##.\n0 0 3\n- WA\nEND\n"
+}

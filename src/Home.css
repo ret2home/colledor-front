@@ -8,3 +8,7 @@
 .top-block{
     margin: 30px 0px;
 }
+.top-block-title{
+    border-left: 5px solid #1976d2;
+    padding: 5px 10px;
+}

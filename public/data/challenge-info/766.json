@@ -1,0 +1,11 @@
+{
+    "id": 766,
+    "rated": 1,
+    "tim": "2022/03/29 11:59:53",
+    "stat": "FINISHED",
+    "user1": "NoTeamname",
+    "user2": "EbiTree",
+    "user1_score": "WA",
+    "user2_score": "-",
+    "output": "#.#..##.#\n..##.##.#\n###.#..##\n#.###..##\n##..#####\n#.###..##\n###.#..##\n..##.##.#\n#.#..##.#\n0 0 0\n1 0 1\n2 0 0\n3 1 5 3\nWA -\nEND\n"
+}

@@ -1,0 +1,6 @@
+{
+    "id": 413,
+    "tim": "2022/03/29 13:03:13",
+    "user": "Team13",
+    "source": "#include <bits/stdc++.h>\nusing namespace std;\nint main()\n{\n    string s;\n    cin >> s;\n    vector<string> x(9);\n    for (int i = 0; i < 9; i++)\n    {\n        cin >> x[i];\n    }\n    cout << \"1 1 1\" << endl;\n    cout << \"1 100 100\" << endl;\n}"
+}

@@ -9,10 +9,10 @@ function Header() {
     const logout = () => {
         localStorage.removeItem('user');
         localStorage.removeItem('token');
-        if(window.location.pathname!="/login")sethref("/login");
+        if (window.location.pathname != "/login") sethref("/login");
     }
     const gologin = () => {
-        if(window.location.pathname!="/login")sethref("/login");
+        if (window.location.pathname != "/login") sethref("/login");
     }
     return (
         <div>
@@ -31,18 +31,6 @@ function Header() {
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                             パ研合宿 2021 レクリエーション
                     </Typography>
-                        {user ? (
-                            <>
-                                <Typography style={{ marginLeft: 'auto', marginRight: 10 }}>{user}</Typography>
-                                <Button onClick={() => logout()} color="inherit">Logout</Button>
-                            </>
-                        ) :
-                            (
-                                <>
-                                    <Button color="inherit" onClick={() => gologin()}>Login</Button>
-                                </>
-                            )
-                        }
                     </Toolbar>
                 </AppBar>
             </Box>

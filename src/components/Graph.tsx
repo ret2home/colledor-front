@@ -56,6 +56,16 @@ export default function Graph() {
                 text: 'Top ranker',
             },
         },
+
+        scales:{
+            y: {
+                suggestedMin: 1450,
+                suggestedMax: 1550,
+                ticks:{
+                    stepSize: 50
+                }
+            }
+        }
     };
     const colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'];
     const [data, setData] = useState<Data>();
@@ -63,7 +73,7 @@ export default function Graph() {
     const CONTEST_START: number = Number(process.env.REACT_APP_CONTEST_START);
 
     useEffect(() => {
-        axios.get(API_URL + "/top-rating-history").then(res => {
+        axios.get(API_URL + "/data/top-rating-history.json").then(res => {
             let resBody: Array<History> = JSON.parse(JSON.stringify(res.data))["history"];
             let ratings: Array<number> = [];
             interface LooseObject {

@@ -31,7 +31,7 @@ interface User {
 function Ranking() {
     const [users, setUsers] = useState<Array<User>>();
     useEffect(() => {
-        axios.get(API_URL + "/users").then(res => {
+        axios.get(API_URL + "/data/users.json").then(res => {
             let resBody = JSON.parse(JSON.stringify(res.data))["users"];
             let resData: Array<User> = [];
             let las:number=-1,rank:number=-1;
@@ -56,7 +56,7 @@ function Ranking() {
         <div>
             <Header />
             <main>
-                <Menu num={5} />
+                <Menu num={3} />
                 <div className="main-contents">
                     <Graph />
                     <TableContainer component={Container} style={{ maxWidth: '600px', marginTop: '15px' }}>

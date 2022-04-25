@@ -1,0 +1,11 @@
+{
+    "id": 170,
+    "rated": 0,
+    "tim": "2022/03/29 10:47:09",
+    "stat": "FINISHED",
+    "user1": "Cancelled",
+    "user2": "Cancelled",
+    "user1_score": "WA",
+    "user2_score": "-",
+    "output": "##...##.#\n..#....##\n..#...##.\n#.##.....\n..###..##\n#.##.....\n..#...##.\n..#....##\n##...##.#\nWA -\nEND\n"
+}

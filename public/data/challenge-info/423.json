@@ -1,0 +1,11 @@
+{
+    "id": 423,
+    "rated": 0,
+    "tim": "2022/03/29 11:24:12",
+    "stat": "FINISHED",
+    "user1": "haira_cute",
+    "user2": "haira_cute",
+    "user1_score": "WA",
+    "user2_score": "-",
+    "output": ".##......\n##.#.##..\n..##.#..#\n#.##.####\n...######\n#.##.####\n..##.#..#\n##.#.##..\n.##......\n0 1 0 4\n1 1 6 4\nWA -\nEND\n"
+}

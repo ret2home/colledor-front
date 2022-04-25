@@ -40,8 +40,6 @@ function Menu(props: Props) {
             </Typography>
             <Tabs value={value} onChange={handleChange} scrollButtons allowScrollButtonsMobile variant="scrollable">
                 <Tab label="トップ" onClick={()=>hr("/")} />
-                <Tab label="提出" onClick={()=>hr("/submit")} />
-                <Tab label="チャレンジ" onClick={()=>hr("/challenge")} />
                 <Tab label="提出一覧" onClick={()=>hr("/submissions-list")} />
                 <Tab label="チャレンジ一覧" onClick={()=>hr("/challenges-list")} />
                 <Tab label="ランキング" onClick={()=>hr("/ranking")} />

@@ -1,0 +1,6 @@
+{
+    "id": 461,
+    "tim": "2022/03/29 19:34:32",
+    "user": "Team13",
+    "source": "#include <bits/stdc++.h>\nusing namespace std;\nint main()\n{\n    string s;\n    cin >> s;\n    if (s == \"First\")\n    {\n        cout << \"1 1 1\" << endl;\n    }\n    cout << \"1 100 100\" << endl;\n}"
+}

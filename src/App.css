@@ -10,3 +10,8 @@ main{
 .main-contents{
     margin: 30px;
 }
+pre{
+    background: #eee;
+    padding: 20px;
+    border-radius: 5px;
+}

@@ -1,0 +1,6 @@
+{
+    "id": 415,
+    "tim": "2022/03/29 13:06:16",
+    "user": "Team13",
+    "source": "#include <bits/stdc++.h>\nusing namespace std;\nint main() {\n    string s;\n    cin >> s;\n    cout<<\"1 1 1\"<<endl;\n    cout<<\"1 100 100\";\n}"
+}

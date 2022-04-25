@@ -1,0 +1,11 @@
+{
+    "id": 1143,
+    "rated": 0,
+    "tim": "2022/03/30 00:03:23",
+    "stat": "FINISHED",
+    "user1": "NoTeamname",
+    "user2": "omuraisus",
+    "user1_score": "-",
+    "user2_score": "WA",
+    "output": "#.##.####\n#.####.##\n####.##..\n#..######\n#######.#\n#..######\n####.##..\n#.####.##\n#.##.####\n0 0 0\n- WA\nEND\n"
+}

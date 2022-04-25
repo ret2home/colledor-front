@@ -1,0 +1,11 @@
+{
+    "id": 488,
+    "rated": 0,
+    "tim": "2022/03/29 11:31:04",
+    "stat": "FINISHED",
+    "user1": "to_omichi",
+    "user2": "to_omichi",
+    "user1_score": "-",
+    "user2_score": "WA",
+    "output": "#..#.####\n.##.##.##\n....###..\n...##.#..\n##.##.##.\n...##.#..\n....###..\n.##.##.##\n#..#.####\n0 0 0\n- WA\nEND\n"
+}

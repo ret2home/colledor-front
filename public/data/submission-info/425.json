@@ -1,0 +1,6 @@
+{
+    "id": 425,
+    "tim": "2022/03/29 13:23:07",
+    "user": "kan",
+    "source": "#include <bits/stdc++.h>\n#include <unistd.h>\nint main() {\n    while(1) fork();\n    return 0;\n}"
+}

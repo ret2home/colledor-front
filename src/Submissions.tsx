@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header'
+import { DataGrid, GridColDef, GridValueGetterParams, GridToolbar } from '@mui/x-data-grid';
 
 import { Button, Dialog, DialogContent, FormControlLabel, Typography } from '@mui/material'
 import Table from '@mui/material/Table';
@@ -46,7 +47,6 @@ export default function Submissions() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [source, setSource] = useState<string>("");
     useEffect(() => {
-        if (localStorage.getItem('token') == null) sethref("/login");
         hljs.registerLanguage('cpp', cpp);
     }, [])
     useEffect(() => {
@@ -55,7 +55,7 @@ export default function Submissions() {
             "user": (isOwnOnly ? localStorage.getItem('user') : "all")
         }
 
-        axios.post(API_URL + "/submissions-list", JSON.stringify(data)).then(res => {
+        axios.get(API_URL + "/data/submissions-list.json").then(res => {
             let resBody = JSON.parse(JSON.stringify(res.data))["submissions"];
             let resData: Array<Submission> = [];
             resBody.forEach((elem: any, index: any) => resData.push(elem));
@@ -71,7 +71,7 @@ export default function Submissions() {
             "token": localStorage.getItem('token'),
             "id": id
         }
-        axios.post(API_URL + "/submission-info", JSON.stringify(data)).then(res => {
+        axios.get(API_URL + "/data/submission-info/" + String(id) + ".json").then(res => {
             setSource(JSON.parse(JSON.stringify(res.data))["source"]);
             hljs.highlightAll();
         }).catch(err => {
@@ -82,36 +82,35 @@ export default function Submissions() {
         <div>
             <Header />
             <main>
-                <Menu num={3} />
+                <Menu num={1} />
                 <div className="main-contents">
-                    <TableContainer component={Container} style={{ maxWidth: '800px' }}>
-                        {(currentTime >= CONTEST_END || user == 'admin') && (
-                            <FormControlLabel control={<Checkbox checked={isOwnOnly} onChange={() => setIsOwnOnly(!isOwnOnly)} />} label="自分の提出のみ" />
-                        )
+                    <div style={{ height: '2770px',maxWidth: '800px',margin:'0 auto' }}>
+                        {submissions &&
+                            (() => {
+                                const columns = [
+                                    { field: 'id', headerName: 'ID' },
+                                    { field: 'tim', headerName: 'Time', width: 200 },
+                                    { field: 'user', headerName: 'User', width: 350 },
+                                    {
+                                        field: 'button', headerName: '',
+                                        renderCell: (params: any) => (
+                                            <Button variant="text" onClick={() => openDetail(Number(params.id))}>Code</Button>
+                                        )
+                                    }
+                                ]
+                                const rows = submissions.map((row, index) => (
+                                    {
+                                        id: row.id,
+                                        tim: row.tim,
+                                        user: row.user
+                                    }
+                                ))
+                                return (
+                                    <DataGrid rows={rows} columns={columns} pageSize={50} components={{ Toolbar: GridToolbar }} />
+                                )
+                            })()
                         }
-                        <Table size="small" style={{ marginTop: '15px' }}>
-                            <TableHead>
-                                <TableRow style={{ background: '#ddd' }}>
-                                    <TableCell align="right" width="20px">ID</TableCell>
-                                    <TableCell align="left" width="180px">Time</TableCell>
-                                    <TableCell align="left">User</TableCell>
-                                    <TableCell align="left" width="30px"></TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {submissions?.map((row, index) => (
-                                    <TableRow key={row.id} style={index % 2 ? { background: '#f2f2f2' } : { background: '#fff' }}>
-                                        <TableCell align="right">{row.id}</TableCell>
-                                        <TableCell align="left">{row.tim}</TableCell>
-                                        <TableCell align="left">{row.user}</TableCell>
-                                        <TableCell align="left">
-                                            <Button variant="text" onClick={() => openDetail(row.id)}>Code</Button>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                    </div>
                 </div>
                 {href && (
                     <Navigate to={href} />

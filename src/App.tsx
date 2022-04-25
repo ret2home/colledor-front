@@ -17,11 +17,8 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/submit" element={<Submit />}/>
                     <Route path="/ranking" element={<Ranking />}/>
                     <Route path="/submissions-list" element={<Submissions />}/>
-                    <Route path="/challenge" element={<Challenge />}/>
                     <Route path="/challenges-list" element={<ChallengesList />}/>
                     <Route path="/challenge-info/:id" element={<ChallengeInfo />}/>
                 </Routes>
