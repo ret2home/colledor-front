@@ -64,7 +64,7 @@ function Ranking() {
             let resData: Array<User2> = [];
             let las:number=-1,rank:number=-1;
             resBody.forEach((elem: any, index: any) => {
-                if(elem.rating!=las){
+                if(elem.stock!=las){
                     rank=index+1;
                 }
                 las=elem.stock;
@@ -87,7 +87,7 @@ function Ranking() {
                 <Menu num={5} />
                 <div className="main-contents">
                     <Graph />
-                    <Typography variant="h4" style={{textAlign: 'center'}}>Rating Ranking</Typography>
+                    <Typography variant="h4" style={{marginTop: '50px',textAlign: 'center'}}>Rating Ranking</Typography>
                     <TableContainer component={Container} style={{ maxWidth: '600px', marginTop: '15px' }}>
                         <Table size="small">
                             <TableHead>

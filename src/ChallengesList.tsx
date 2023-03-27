@@ -169,12 +169,12 @@ export default function ChallengesList() {
 
                                     let diff1 = 0, diff2 = 0;
                                     if (result == "win1" && row.user1_vote != 0) {
-                                        diff1 = Math.round(row.user2_vote * 50 / row.user1_vote * 10) / 10;
+                                        diff1 = Math.ceil(row.user2_vote * 50 / row.user1_vote);
                                         diff2 = -50;
                                     }
                                     if (result == "win2" && row.user2_vote != 0) {
                                         diff1 = -50;
-                                        diff2 = Math.round(row.user1_vote * 50 / row.user2_vote * 10) / 10;
+                                        diff2 = Math.ceil(row.user1_vote * 50 / row.user2_vote);
                                     }
 
                                     let background = (index % 2 ? '#f2f2f2' : '#fff');

@@ -17,7 +17,7 @@ function Header() {
     return (
         <div>
             <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="static" className="appbar" style={{background: '#1a237e'}}>
+                <AppBar position="static" className="appbar">
                     <Toolbar>
 
                         <IconButton
