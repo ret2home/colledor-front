@@ -21,6 +21,8 @@ function dat(d:number){
 
 const CONTEST_START:number=Number(process.env.REACT_APP_CONTEST_START);
 const CONTEST_END:number=Number(process.env.REACT_APP_CONTEST_END);
+
+console.log(process.env.REACT_APP_API_URL)
 function Menu(props: Props) {
     const [value, setValue] = React.useState(props.num);
     const [href, sethref]=React.useState<string>();

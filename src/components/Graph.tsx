@@ -9,6 +9,8 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import { Chart, registerables} from 'chart.js';
+
 import { Line } from 'react-chartjs-2'
 import axios from 'axios'
 
@@ -27,6 +29,9 @@ interface Data {
     labels: Array<string>,
     datasets: Array<Dataset>
 }
+
+
+Chart.register(...registerables);
 
 const API_URL: string | undefined = process.env.REACT_APP_API_URL;
 
@@ -65,6 +70,7 @@ export default function Graph() {
     useEffect(() => {
         axios.get(API_URL + "/top-rating-history").then(res => {
             let resBody: Array<History> = JSON.parse(JSON.stringify(res.data))["history"];
+            console.log(res)
             let ratings: Array<number> = [];
             interface LooseObject {
                 [key: string]: any

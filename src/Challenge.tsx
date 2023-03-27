@@ -81,7 +81,7 @@ export default function Challenge() {
                             <Typography variant="body1">申込み時点ではなく、ジャッジ開始時点で最後に提出されたコードが使われます。</Typography>
                         </li>
                         <li>
-                            <Typography variant="body1">対戦相手に関わらず、チャレンジ後は 3 分間チャレンジできません。</Typography>
+                            <Typography variant="body1">対戦相手に関わらず、申し込んだチャレンジが終了するまではチャレンジできません。</Typography>
                         </li>
                     </ul>
                     <div style={{ marginTop: '20px' }}>

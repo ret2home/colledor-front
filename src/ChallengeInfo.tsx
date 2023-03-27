@@ -20,6 +20,23 @@ import StopIcon from '@mui/icons-material/Stop';
 import AppleImage from './fruit_apple.png'
 import './ChallengeInfo.css'
 
+import { Chart, registerables} from 'chart.js';
+
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+
+
+
+Chart.register(...registerables);
+
 const API_URL: string | undefined = process.env.REACT_APP_API_URL;
 
 if (axios.defaults.headers) {
@@ -46,6 +63,7 @@ interface Act {
 }
 interface Game {
     C: Array<Array<number>>,
+    base: Array<Array<number>>,
     X: Array<number>,
     Y: Array<number>,
     score: Array<number>,
@@ -61,7 +79,8 @@ function newGame() {
     }
     let game: Game = {
         C: a99.slice(),
-        X: [8, 0],
+        base: a99.slice(),
+        X: [0, 8],
         Y: [4, 4],
         score: [0, 0],
         wall_used: [0, 0],
@@ -75,19 +94,23 @@ let dx = [-1, 0, 1, 0];
 let dy = [0, 1, 0, -1];
 function applyAct(game: Game, act: Act) {
     let n = JSON.parse(JSON.stringify(game));
-    if (act.type == 0) {
-        n.X[n.turn] += dx[act.x];
-        n.Y[n.turn] += dy[act.x];
+    if (act.type == 0 || act.type == 1) {
+        n.X[n.turn] = act.x;
+        n.Y[n.turn] = act.y;
         if (n.C[n.X[n.turn]][n.Y[n.turn]]) {
-            n.score[n.turn]++;
+            n.score[n.turn] += 5;
             n.C[n.X[n.turn]][n.Y[n.turn]] = false;
         }
-    } else if (act.type == 1) {
+    } else if (act.type == 2) {
+        n.base[act.x][act.y] = n.turn + 1;
+        n.score[n.turn] -= 3;
+    }
+    else if (act.type == 3) {
         n.wall_hrz[act.x][act.y] = n.wall_hrz[act.x][act.y + 1] = n.turn + 1;
-        n.wall_used[n.turn]++;
-    } else {
+        n.score[n.turn] -= 3;
+    } else if (act.type == 4) {
         n.wall_vert[act.x][act.y] = n.wall_vert[act.x + 1][act.y] = n.turn + 1;
-        n.wall_used[n.turn]++;
+        n.score[n.turn] -= 3;
     }
     n.turn ^= 1;
     return JSON.parse(JSON.stringify(n));
@@ -119,18 +142,17 @@ export default function ChallengeInfo() {
             if (clone.length == 0) {
                 let game: Game = newGame();
                 for (let i = 0; i < 9; i++)for (let j = 0; j < 9; j++) {
-                    if (spl[i][j] == '#') game.C[i][j] = 1;
+                    if (spl[i][j] == '1') game.C[i][j] = 1;
                     else game.C[i][j] = 0;
                 }
                 clone.push(game);
             }
             for (let i = 9; i < spl.length; i++) {
                 let x = spl[i].split(' ');
-                if (x.length == 3) x.push('0');
                 let act: Act = {
-                    type: Number(x[1]),
-                    x: Number(x[2]),
-                    y: Number(x[3])
+                    type: Number(x[0]),
+                    x: Number(x[1]),
+                    y: Number(x[2])
                 };
                 clone.push(applyAct(clone[clone.length - 1], act));
             }
@@ -166,6 +188,29 @@ export default function ChallengeInfo() {
             return c + 1;
         });
     })
+    const options = {
+        indexAxis: 'y' as const,
+        elements: {
+            bar: {
+                borderWidth: 2,
+            },
+        },
+        responsive: true,
+        legend: {
+            display: false,
+        },
+        aspectRatio: Math.min(1000, window.innerWidth) / 200,
+        maintainAspectRatio: false,
+        scales: {
+            x: {
+                suggestedMin: 0,
+                suggestedMax: 30,
+                ticks: {
+                    stepSize: 5
+                }
+            }
+        }
+    };
     const handleSliderChange = (event: Event, newValue: number | number[]) => {
         if (typeof (newValue) == "number") {
             stopRunning();
@@ -233,13 +278,34 @@ export default function ChallengeInfo() {
                         </IconButton>
                         <Slider step={1} min={0} max={Math.max(games.current.length - 1, 0)} value={currentStep} onChange={handleSliderChange} />
                     </div>
-                    {games.current.length ? (
+
+                    {games.current.length && challenge ? (
 
                         <div className="scoreboard">
-                            {(currentStep == games.current.length - 1 && challenge?.stat == "FINISHED") ? (
-                                <Typography variant="h4">{challenge.user1_score} : {challenge.user2_score}</Typography>
+                            {(currentStep == games.current.length - 1 && challenge?.stat == "FINISHED" && (challenge.user1_score == "WA" || challenge.user1_score == "TLE" || challenge.user2_score == "WA" || challenge.user2_score == "TLE")) ? (
+                                ((challenge.user1_score == "WA" || challenge.user1_score == "TLE") ? (
+                                    <Typography variant="h4">{challenge.user1} : {challenge.user1_score}</Typography>
+                                ) : (
+                                    <Typography variant="h4">{challenge.user2} : {challenge.user2_score}</Typography>
+                                ))
                             ) : (
-                                <Typography variant="h4">{games.current[currentStep].score[0]} : {games.current[currentStep].score[1]}</Typography>
+                                (() => {
+                                    const labels = [challenge.user1, challenge.user2];
+                                    const dat = {
+                                        labels,
+                                        datasets: [
+                                            {
+                                                label: "Score",
+                                                data: [games.current[currentStep].score[0], games.current[currentStep].score[1]],
+                                                backgroundColor: ["#00000080", "#ffffff80"],
+                                                borderColor: "#888",
+                                                borderWidth: 2,
+                                                barThickness: 20,
+                                            }
+                                        ]
+                                    };
+                                    return <Bar options={options} data={dat} />
+                                })()
                             )
                             }
                         </div>
@@ -251,7 +317,9 @@ export default function ChallengeInfo() {
                                     games.current[currentStep].C.map((row, i) => (
                                         row.map((x, j) => (
                                             <div style={{ width: '50px', height: '50px', position: 'absolute', top: String(70 + 65 * i) + 'px', left: String(20 + 65 * j) + 'px', background: '#c3ab8c', zIndex: '100', borderRadius: '5px' }} key={i * 9 + j}>
-                                                <img src={AppleImage} style={{ 'width': '40px', 'height': '40px', margin: '5px', position: 'relative', opacity: (x ? '100%' : '0%'), transition: '0.5s' }}></img>
+                                                <img src={AppleImage} style={{ 'width': '30px', 'height': '30px', margin: '10px', position: 'relative', opacity: (x ? '100%' : '0%'), transition: '0.5s' }}></img>
+                                                <p style={{ fontSize: '25px', top: '-35px', left: '-3px', position: 'absolute', opacity: (games.current[currentStep].base[i][j]==2 ? '100%' : '0%'), transition: '0.5s' }}>🏳</p>
+                                                <p style={{ fontSize: '25px', top: '-35px', left: '-3px', position: 'absolute', opacity: (games.current[currentStep].base[i][j]==1 ? '100%' : '0%'), transition: '0.5s' }}>🏴</p>
                                             </div>
                                         ))
                                     ))
@@ -273,24 +341,6 @@ export default function ChallengeInfo() {
                                             )
                                         })
                                     ))
-                                }
-                                {
-                                    (() => {
-                                        let v: Array<ReactElement> = [];
-                                        for (let i = 0; i < 10 - games.current[currentStep].wall_used[1]; i++)v.push((
-                                            <div style={{ width: '10px', height: '50px', position: 'absolute', top: '15px', left: String(20 + 65 * i - 12) + 'px', background: '#fff', zIndex: '2', borderRadius: '3px' }} key={i}></div>
-                                        ))
-                                        return v;
-                                    })()
-                                }
-                                {
-                                    (() => {
-                                        let v: Array<ReactElement> = [];
-                                        for (let i = 0; i < 10 - games.current[currentStep].wall_used[0]; i++)v.push((
-                                            <div style={{ width: '10px', height: '50px', position: 'absolute', top: '645px', left: String(20 + 65 * i - 12) + 'px', background: '#000', zIndex: '2', borderRadius: '3px' }} key={i}></div>
-                                        ))
-                                        return v;
-                                    })()
                                 }
                                 <div style={{ width: '30px', height: '30px', position: 'absolute', top: String(80 + 65 * games.current[currentStep].X[1]) + 'px', left: String(30 + 65 * games.current[currentStep].Y[1]) + 'px', background: '#fff', zIndex: '100', borderRadius: '50%', transition: '0.3s' }}></div>
                                 <div style={{ width: '30px', height: '30px', position: 'absolute', top: String(80 + 65 * games.current[currentStep].X[0]) + 'px', left: String(30 + 65 * games.current[currentStep].Y[0]) + 'px', background: '#00000099', zIndex: '100', borderRadius: '50%', transition: '0.3s' }}></div>

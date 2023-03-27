@@ -17,7 +17,7 @@ function Header() {
     return (
         <div>
             <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="static" className="appbar">
+                <AppBar position="static" className="appbar" style={{background: '#1a237e'}}>
                     <Toolbar>
 
                         <IconButton
@@ -29,7 +29,7 @@ function Header() {
                             href="/"
                         ><HomeIcon /></IconButton>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            パ研合宿 2021 レクリエーション
+                            パ研合宿 2022 レクリエーション
                     </Typography>
                         {user ? (
                             <>

@@ -59,9 +59,6 @@ export default function Submit() {
                         <li>
                             <Typography variant="body1">チャレンジには最後に提出されたコードが使われます。</Typography>
                         </li>
-                        <li>
-                            <Typography variant="body1">コンパイルの結果に関わらず提出後は 30 秒間提出できません。</Typography>
-                        </li>
                     </ul>
                     <div style={{marginTop: '20px'}}>
                         <Typography variant="body1" color="red">{message}</Typography>

@@ -15,9 +15,9 @@ function Home() {
                 <Menu num={0} />
                 <div className="main-contents">
                     <div className="event-title">
-                        <Typography variant="h3">パ研合宿 2021 レクリエーション</Typography>
+                        <Typography variant="h3">パ研合宿 2022 レクリエーション</Typography>
                     </div>
-                    <Typography variant="body2" style={{ color: '#666', fontSize: '13px' }}>参加対象: パ研合宿 2021 参加者</Typography>
+                    <Typography variant="body2" style={{ color: '#666', fontSize: '13px' }}>参加対象: パ研合宿 2022 参加者</Typography>
 
                     <div className="top-block">
                         <Typography variant="h5">コンテスト情報</Typography>
